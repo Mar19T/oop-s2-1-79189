@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Domain
 {
-    internal class Member
+    public class Member
     {
         public string Id { get; set; }
         public string FullName { get; set; }
