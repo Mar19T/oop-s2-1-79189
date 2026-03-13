@@ -9,20 +9,55 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@* This is searching and feiltering User Interface*@
+<form method="get">
+    <p>
+        Sort By:
+        <select name="sortOrder">
+            <option value="">Title (A-Z)</option>
+            <option value="title_desc">Title (Z-A)</option>
+            <option value="author">Author (A-Z)</option>
+            <option value="author_desc">Author (Z-A)</option>
+            <option value="category">Category (A-Z)</option>
+            <option value="category_desc">Category (Z-A)</option>
+        </select>
+        Search:
+        <input type="text" name="searchString" />
+
+        Category:
+        <input type="text" name="category" />
+
+        Availability:
+        <select name="availability">
+            <option value="">All</option>
+            <option value="Available">Available</option>
+            <option value="OnLoan">On Loan</option>
+        </select>
+
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSort"]">
+                    Title
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSort"]">
+                    Author
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ISBN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CategorySort"]">
+                    Category
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsAvailable)

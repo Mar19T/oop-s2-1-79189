@@ -22,8 +22,12 @@ namespace Library.MVC.Controllers
         // GET: Books
 
         //Modified Index action to include search and filter functionality
-        public async Task<IActionResult> Index(string searchString, string category, string availability)
+        public async Task<IActionResult> Index(string searchString, string category, string availability, string sortOrder)
         {
+            ViewData["TitleSort"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["AuthorSort"] = sortOrder == "author" ? "author_desc" : "author";
+            ViewData["CategorySort"] = sortOrder == "category" ? "category_desc" : "category";
+            
             var books = from b in _context.Books
                         select b;
 
@@ -53,6 +57,34 @@ namespace Library.MVC.Controllers
                     books = books.Where(b => !b.IsAvailable);
                 }
             }
+            // Sorting
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    books = books.OrderByDescending(b => b.Title);
+                    break;
+
+                case "author":
+                    books = books.OrderBy(b => b.Author);
+                    break;
+
+                case "author_desc":
+                    books = books.OrderByDescending(b => b.Author);
+                    break;
+
+                case "category":
+                    books = books.OrderBy(b => b.Category);
+                    break;
+
+                case "category_desc":
+                    books = books.OrderByDescending(b => b.Category);
+                    break;
+
+                default:
+                    books = books.OrderBy(b => b.Title);
+                    break;
+            }
+
 
             return View(await books.ToListAsync());
         }
