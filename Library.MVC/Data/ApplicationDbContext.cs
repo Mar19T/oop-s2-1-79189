@@ -11,7 +11,7 @@ namespace Library.MVC.Data
            
            public DbSet<Books> Books { get; set; }      //books
            public DbSet<Member> Members { get; set; }   //custumer
-            public DbSet<Loan> Loans { get; set; }   //loans
+           public DbSet<Loan> Loans { get; set; }   //loans
         }
         
 }

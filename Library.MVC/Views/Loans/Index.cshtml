@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookID)
+                @Html.DisplayNameFor(model => model.Book)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MemberID)
+                @Html.DisplayNameFor(model => model.Member)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LoanDate)
@@ -31,13 +31,20 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+
+
+@foreach (var item in Model)
+{
+    @*I was modifed in oreder to change color if the book selected is overdue*@
+    bool overdue = item.DueDate < ViewBag.Today && item.ReturnDate == null;
+
+    <tr class="@(overdue ? "table-danger" : "")">
+        
             <td>
-                @Html.DisplayFor(modelItem => item.BookID)
+                @Html.DisplayFor(modelItem => item.Book.Author)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MemberID)
+                @Html.DisplayFor(modelItem => item.Member.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LoanDate)
@@ -49,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.ReturnDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }

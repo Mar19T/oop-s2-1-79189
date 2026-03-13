@@ -16,6 +16,6 @@ namespace Library.Domain
         public string ISBN { get; set; }
         public string Category { get; set; } 
         public bool IsAvailable { get; set; }= true;
-        public List <Loan> Loans { get; set; }
+        public List <Loan>? Loans { get; set; }
     }
 }

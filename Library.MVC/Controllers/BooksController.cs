@@ -20,9 +20,41 @@ namespace Library.MVC.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+
+        //Modified Index action to include search and filter functionality
+        public async Task<IActionResult> Index(string searchString, string category, string availability)
         {
-            return View(await _context.Books.ToListAsync());
+            var books = from b in _context.Books
+                        select b;
+
+            // Search by Title or Author
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(b =>
+                    b.Title.Contains(searchString) ||
+                    b.Author.Contains(searchString));
+            }
+
+            // Filter by Category
+            if (!String.IsNullOrEmpty(category))
+            {
+                books = books.Where(b => b.Category == category);
+            }
+
+            // Filter by Availability
+            if (!String.IsNullOrEmpty(availability))
+            {
+                if (availability == "Available")
+                {
+                    books = books.Where(b => b.IsAvailable);
+                }
+                else if (availability == "OnLoan")
+                {
+                    books = books.Where(b => !b.IsAvailable);
+                }
+            }
+
+            return View(await books.ToListAsync());
         }
 
         // GET: Books/Details/5
@@ -54,14 +86,17 @@ namespace Library.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ISBN,Category,IsAvailable")] Books books)
+        public async Task<IActionResult> Create([Bind("Id,Title,Author,ISBN,Category,IsAvailable")] Books books)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(books);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(books);
         }
 
@@ -86,7 +121,7 @@ namespace Library.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ISBN,Category,IsAvailable")] Books books)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,ISBN,Category,IsAvailable")] Books books)
         {
             if (id != books.Id)
             {
