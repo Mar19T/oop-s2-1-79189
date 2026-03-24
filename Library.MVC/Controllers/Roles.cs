@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Library.MVC.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "LowerAdmin")]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

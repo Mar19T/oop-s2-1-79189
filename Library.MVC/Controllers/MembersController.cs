@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace Library.MVC.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "LowerAdmin")]
     public class MembersController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -13,6 +13,10 @@ namespace Library.MVC.Data
             string email = "admin@library.com";
             string password = "Admin123!";
 
+            string LowerRoleName = "LowerAdmin";
+            string Loweremail = "AdminLower@library.com";
+            string Lowerpassword = "LowerAdmin123!";
+
             // Create role if it doesn't exist
             if (!await roleManager.RoleExistsAsync(roleName))
             {
