@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Library.MVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Supervisor")]
     public class LoansController : Controller
 
     {

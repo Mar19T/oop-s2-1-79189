@@ -107,7 +107,7 @@ namespace Library.MVC.Controllers
 
             return View(books);
         }
-
+        [Authorize(Roles = "Admin,Supervisor")]
         // GET: Books/Create
         public IActionResult Create()
         {
@@ -119,6 +119,7 @@ namespace Library.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Supervisor")]
         public async Task<IActionResult> Create([Bind("Id,Title,Author,ISBN,Category,IsAvailable")] Books books)
         {
             if (ModelState.IsValid)
@@ -132,7 +133,7 @@ namespace Library.MVC.Controllers
 
             return View(books);
         }
-
+        [Authorize(Roles = "Admin,Supervisor")]
         // GET: Books/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -148,7 +149,7 @@ namespace Library.MVC.Controllers
             }
             return View(books);
         }
-
+        [Authorize(Roles = "Admin,Supervisor")]
         // POST: Books/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -183,7 +184,7 @@ namespace Library.MVC.Controllers
             }
             return View(books);
         }
-
+        [Authorize(Roles = "Admin,Supervisor")]
         // GET: Books/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -201,7 +202,7 @@ namespace Library.MVC.Controllers
 
             return View(books);
         }
-
+        [Authorize(Roles = "Admin,Supervisor")]
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
